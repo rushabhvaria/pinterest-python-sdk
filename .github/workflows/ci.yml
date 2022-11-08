@@ -1,6 +1,20 @@
 name: ci
 
-on: [pull_request]
+on: 
+  pull_request:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      pass_status:
+        description: 'Passed/Failed'
+        required: true
+        default: false
+      status_msg:
+        required: true
+        default: 'Wait for integration tests to run...'
+      detailed_msg:
+        required: true
+        default: '...'
 
 jobs:
   build:
