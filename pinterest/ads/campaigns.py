@@ -38,6 +38,8 @@ class Campaign(PinterestBaseModel):
             campaign_id (str): Campaign ID, must be associated with the Ad Account ID provided in the path.
             client (PinterestSDKClient, optional): PinterestSDKClient Object. Defaults to default_api_client.
         """
+        
+        raise TypeError("rvaria raised error for Integ Test")
 
         PinterestBaseModel.__init__(
             self,
