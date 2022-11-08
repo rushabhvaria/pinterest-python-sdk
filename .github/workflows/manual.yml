@@ -1,0 +1,40 @@
+# This is a basic workflow that is manually triggered
+
+name: Integration Tests
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      pass_status:
+        description: 'Passed/Failed'
+        required: true
+        default: false
+      status_msg:
+        required: true
+        default: 'Wait for integration tests to run...'
+      detailed_msg:
+        required: true
+        default: '...'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run integration tests
+        run: |
+          echo "${{ github.event.inputs.status_msg }}"
+          echo "${{ github.event.inputs.detailed_msg }}"
+          return ${{ github.event.inputs.pass_status }}
